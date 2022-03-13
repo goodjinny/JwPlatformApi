@@ -7,7 +7,6 @@ namespace App\Service\VideoPlatform\JwPlatform;
 use App\DTO\Response\AnalyticsQueriesResponseDto;
 use App\DTO\Response\AnalyticsQueriesResponseMetadata;
 use App\Enum\JwPlayerMetricsField;
-use App\Exception\Response\UnexpectedResponseException;
 use App\Exception\Serializer\DeserializationFailureException;
 use App\Exception\Serializer\SymfonySerializerException;
 use App\Service\VideoPlatform\JwPlatform\Request\CreateVideoParams;
@@ -157,17 +156,10 @@ class JwPlatformApi
         /** @var AnalyticsQueriesResponseDto $response */
         $response = $this->serializer->deserialize($rawResponse, AnalyticsQueriesResponseDto::class, JsonEncoder::FORMAT);
 
-        if (!$response->getMetadata()->hasColumnHeader(AnalyticsQueriesResponseMetadata::HEADER_METRICS)) {
-            throw new UnexpectedResponseException('Unexpected JWPlayer analytics metrics response: ' . $rawResponse);
-        }
-
         $videoStats = new VideoStats();
 
         if ($response->getData()->hasRows()) {
             $jwPlayerRows = $response->getData()->getRows()[0];
-            if ($jwPlayerRows[0] !== $params->getMediaId()) {
-                throw new UnexpectedResponseException('Unexpected JWPlayer analytics rows response: ' . $rawResponse);
-            }
             array_shift($jwPlayerRows);
 
             $metrics = $response->getMetadata()->getColumnHeader(AnalyticsQueriesResponseMetadata::HEADER_METRICS);
