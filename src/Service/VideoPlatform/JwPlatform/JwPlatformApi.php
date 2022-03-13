@@ -263,9 +263,7 @@ class JwPlatformApi
 
     public function fetchThumbnail(FetchThumbnailParams $params): ThumbnailResource
     {
-        $name = "{$params->getVideoKey()}-{$params->getThumbWidth()}.jpg";
-
-        $fileContent = $this->client->download("/thumbs/{$name}");
+        $fileContent = $this->client->download($name = $params->getThumbFileName());
 
         $tempFilePath = tempnam(sys_get_temp_dir(), 'thumb');
         $outHandle = fopen($tempFilePath, "w+");
@@ -275,7 +273,7 @@ class JwPlatformApi
         return new ThumbnailResource(
             $name,
             $tempFilePath,
-            null//TODO get mimetype?
+            null
         );
     }
 
