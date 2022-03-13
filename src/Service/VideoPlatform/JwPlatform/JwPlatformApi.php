@@ -122,7 +122,7 @@ class JwPlatformApi
     {
         $uploadLink = $params->getLink();
 
-        $rawResult = $this->client->uploadFile($filePath, $uploadLink);
+        $this->client->uploadFile($filePath, $uploadLink);
     }
 
     public function fetchAnalytics(
