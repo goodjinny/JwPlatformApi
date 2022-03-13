@@ -156,43 +156,7 @@ class JwPlatformApi
         /** @var AnalyticsQueriesResponseDto $response */
         $response = $this->serializer->deserialize($rawResponse, AnalyticsQueriesResponseDto::class, JsonEncoder::FORMAT);
 
-        $videoStats = new VideoStats();
-
-        if ($response->getData()->hasRows()) {
-            $jwPlayerRows = $response->getData()->getRows()[0];
-            array_shift($jwPlayerRows);
-
-            $metrics = $response->getMetadata()->getColumnHeader(AnalyticsQueriesResponseMetadata::HEADER_METRICS);
-            $fields = array_column($metrics, 'field');
-
-            foreach ($fields as $key => $field) {
-                switch ($field) {
-                    case JwPlayerMetricsField::TOTAL_PLAYS->value:
-                        $videoStats->setPlays($jwPlayerRows[$key]);
-                        break;
-                    case JwPlayerMetricsField::COMPLETE_RATE->value:
-                        $videoStats->setCompleteRate($jwPlayerRows[$key]);
-                        break;
-                    case JwPlayerMetricsField::UNIQUE_VIEWERS->value:
-                        $videoStats->setUniqueViewers($jwPlayerRows[$key]);
-                        break;
-                    case JwPlayerMetricsField::PLAY_RATE->value:
-                        $videoStats->setPlayRate($jwPlayerRows[$key]);
-                        break;
-                    case JwPlayerMetricsField::EMBEDS->value:
-                        $videoStats->setEmbeds($jwPlayerRows[$key]);
-                        break;
-                    case JwPlayerMetricsField::COMPLETES->value:
-                        $videoStats->setCompletes($jwPlayerRows[$key]);
-                        break;
-                    case JwPlayerMetricsField::CONTENT_SCORE->value:
-                        $videoStats->setContentScore($jwPlayerRows[$key]);
-                        break;
-                }
-            }
-        }
-
-        return $videoStats;
+        return  $this->buildAnalyticsQueriesVideoStats($response);
     }
 
     public function createWebhook(CreateWebhookParams $params): CreatedWebhookApiResponse
@@ -350,5 +314,48 @@ class JwPlatformApi
             $tempFilePath,
             null//TODO get mimetype?
         );
+    }
+
+    private function buildAnalyticsQueriesVideoStats(AnalyticsQueriesResponseDto $response): VideoStats
+    {
+        $videoStats = new VideoStats();
+
+        if (!$response->getData()->hasRows()) {
+            return $videoStats;
+        }
+
+        $jwPlayerRows = $response->getData()->getRows()[0];
+        array_shift($jwPlayerRows);
+
+        $metrics = $response->getMetadata()->getColumnHeader(AnalyticsQueriesResponseMetadata::HEADER_METRICS);
+        $fields = array_column($metrics, 'field');
+
+        foreach ($fields as $key => $field) {
+            switch ($field) {
+                case JwPlayerMetricsField::TOTAL_PLAYS->value:
+                    $videoStats->setPlays($jwPlayerRows[$key]);
+                    break;
+                case JwPlayerMetricsField::COMPLETE_RATE->value:
+                    $videoStats->setCompleteRate($jwPlayerRows[$key]);
+                    break;
+                case JwPlayerMetricsField::UNIQUE_VIEWERS->value:
+                    $videoStats->setUniqueViewers($jwPlayerRows[$key]);
+                    break;
+                case JwPlayerMetricsField::PLAY_RATE->value:
+                    $videoStats->setPlayRate($jwPlayerRows[$key]);
+                    break;
+                case JwPlayerMetricsField::EMBEDS->value:
+                    $videoStats->setEmbeds($jwPlayerRows[$key]);
+                    break;
+                case JwPlayerMetricsField::COMPLETES->value:
+                    $videoStats->setCompletes($jwPlayerRows[$key]);
+                    break;
+                case JwPlayerMetricsField::CONTENT_SCORE->value:
+                    $videoStats->setContentScore($jwPlayerRows[$key]);
+                    break;
+            }
+        }
+
+        return $videoStats;
     }
 }
