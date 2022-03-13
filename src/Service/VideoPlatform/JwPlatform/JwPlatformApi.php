@@ -42,7 +42,8 @@ class JwPlatformApi
         private NormalizerInterface $normalizer,
         private JwPlatformClient $client,
         private string $siteKey
-    ) {}
+    ) {
+    }
 
     /**
      * @see https://developer.jwplayer.com/jwplayer/reference#post_videos-create
@@ -60,11 +61,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new DeserializationFailureException(
-                'Unable to deserialize: "' . $rawResponse . '"',
-                0,
-                $exception
-            );
+            throw new DeserializationFailureException('Unable to deserialize: "'.$rawResponse.'"', 0, $exception);
         }
     }
 
@@ -85,11 +82,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new DeserializationFailureException(
-                'Unable to deserialize: "' . $rawResponse . '"',
-                0,
-                $exception
-            );
+            throw new DeserializationFailureException('Unable to deserialize: "'.$rawResponse.'"', 0, $exception);
         }
     }
 
@@ -110,11 +103,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new DeserializationFailureException(
-                'Unable to deserialize: "' . $rawResponse . '"',
-                0,
-                $exception
-            );
+            throw new DeserializationFailureException('Unable to deserialize: "'.$rawResponse.'"', 0, $exception);
         }
     }
 
@@ -127,8 +116,7 @@ class JwPlatformApi
 
     public function fetchAnalytics(
         VideoStatsParams $params
-    ): VideoStats
-    {
+    ): VideoStats {
         $path = "/sites/{$this->siteKey}/analytics/queries/";
 
         $normalizedParams = $this->normalizer->normalize($params);
@@ -137,7 +125,7 @@ class JwPlatformApi
         /** @var AnalyticsQueriesResponse $response */
         $response = $this->serializer->deserialize($rawResponse, AnalyticsQueriesResponse::class, JsonEncoder::FORMAT);
 
-        return  $this->buildAnalyticsQueriesVideoStats($response);
+        return $this->buildAnalyticsQueriesVideoStats($response);
     }
 
     public function createWebhook(CreateWebhookParams $params): CreatedWebhookApiResponse
@@ -153,11 +141,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new DeserializationFailureException(
-                'Unable to deserialize: "' . $rawResponse . '"',
-                0,
-                $exception
-            );
+            throw new DeserializationFailureException('Unable to deserialize: "'.$rawResponse.'"', 0, $exception);
         }
     }
 
@@ -173,11 +157,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new DeserializationFailureException(
-                'Unable to deserialize: "' . $rawResponse . '"',
-                0,
-                $exception
-            );
+            throw new DeserializationFailureException('Unable to deserialize: "'.$rawResponse.'"', 0, $exception);
         }
     }
 
@@ -193,11 +173,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new DeserializationFailureException(
-                'Unable to deserialize: "' . $rawResponse . '"',
-                0,
-                $exception
-            );
+            throw new DeserializationFailureException('Unable to deserialize: "'.$rawResponse.'"', 0, $exception);
         }
     }
 
@@ -213,11 +189,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new DeserializationFailureException(
-                'Unable to deserialize: "' . $rawResponse . '"',
-                0,
-                $exception
-            );
+            throw new DeserializationFailureException('Unable to deserialize: "'.$rawResponse.'"', 0, $exception);
         }
     }
 
@@ -233,11 +205,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new DeserializationFailureException(
-                'Unable to deserialize: "' . $rawResponse . '"',
-                0,
-                $exception
-            );
+            throw new DeserializationFailureException('Unable to deserialize: "'.$rawResponse.'"', 0, $exception);
         }
     }
 
@@ -253,11 +221,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new DeserializationFailureException(
-                'Unable to deserialize: "' . $rawResponse . '"',
-                0,
-                $exception
-            );
+            throw new DeserializationFailureException('Unable to deserialize: "'.$rawResponse.'"', 0, $exception);
         }
     }
 
@@ -266,7 +230,7 @@ class JwPlatformApi
         $fileContent = $this->client->download($name = $params->getThumbFileName());
 
         $tempFilePath = tempnam(sys_get_temp_dir(), 'thumb');
-        $outHandle = fopen($tempFilePath, "w+");
+        $outHandle = fopen($tempFilePath, 'w+');
         fwrite($outHandle, $fileContent);
         fclose($outHandle);
 

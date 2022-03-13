@@ -6,5 +6,4 @@ namespace App\Exception\Response;
 
 final class UnexpectedResponseException extends \Exception
 {
-
 }

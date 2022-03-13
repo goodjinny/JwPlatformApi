@@ -6,5 +6,4 @@ namespace App\Exception\Serializer;
 
 final class DeserializationFailureException extends SymfonySerializerException
 {
-
 }

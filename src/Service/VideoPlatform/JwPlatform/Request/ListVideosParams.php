@@ -6,5 +6,4 @@ namespace App\Service\VideoPlatform\JwPlatform\Request;
 
 final class ListVideosParams
 {
-
 }

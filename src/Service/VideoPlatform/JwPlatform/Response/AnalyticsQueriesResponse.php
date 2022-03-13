@@ -47,14 +47,14 @@ final class AnalyticsQueriesResponse
     private function validate(): void
     {
         if (!$this->getMetadata()->hasColumnHeader(AnalyticsQueriesResponseMetadata::HEADER_METRICS)) {
-            throw new UnexpectedResponseException('Unexpected JWPlayer analytics metrics response: ' . $this->getRawContent());
+            throw new UnexpectedResponseException('Unexpected JWPlayer analytics metrics response: '.$this->getRawContent());
         }
 
         // this is definitely incorrect validation. The situation where response consists incorrect mediaId should not be happen
         if ($this->getData()->hasRows()) {
             $jwPlayerRows = $this->getData()->getRows()[0];
             if ($jwPlayerRows[0] !== $params->getMediaId()) {
-                throw new UnexpectedResponseException('Unexpected JWPlayer analytics rows response: ' . $this->getRawContent());
+                throw new UnexpectedResponseException('Unexpected JWPlayer analytics rows response: '.$this->getRawContent());
             }
         }
     }

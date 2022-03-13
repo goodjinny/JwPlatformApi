@@ -6,5 +6,4 @@ namespace App\Service\VideoPlatform\JwPlatform\Response;
 
 final class ApiResponse
 {
-
 }

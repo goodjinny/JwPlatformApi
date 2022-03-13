@@ -6,5 +6,4 @@ namespace App\Exception\Generic;
 
 final class InvalidArgumentException extends \InvalidArgumentException
 {
-
 }

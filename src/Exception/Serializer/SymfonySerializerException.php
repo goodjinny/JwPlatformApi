@@ -8,5 +8,4 @@ use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
 class SymfonySerializerException extends \Exception implements ExceptionInterface
 {
-
 }
