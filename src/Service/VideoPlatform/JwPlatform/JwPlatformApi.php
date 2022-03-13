@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service\VideoPlatform\JwPlatform;
 
+use App\DTO\Response\AnalyticsQueriesResponseDto;
+use App\DTO\Response\AnalyticsQueriesResponseMetadata;
 use App\Enum\JwPlayerMetricsField;
 use App\Exception\Response\UnexpectedResponseException;
 use App\Exception\Serializer\DeserializationFailureException;
@@ -29,6 +31,7 @@ use App\Service\VideoPlatform\JwPlatform\Response\UploadMetadata;
 use App\Service\VideoPlatform\JwPlatform\Response\VideoShowResponse;
 use App\Service\VideoPlatform\JwPlatform\Response\VideosList;
 use App\Service\VideoPlatform\VideoStats;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -151,22 +154,23 @@ class JwPlatformApi
         $normalizedParams = $this->normalizer->normalize($params);
         $rawResponse = $this->client->requestV2($path, $normalizedParams);
 
-        /** @var \stdClass $responseJson */
-        $responseJson = json_decode($rawResponse);
-        if (!isset($responseJson->metadata->column_headers->metrics)) {
+        /** @var AnalyticsQueriesResponseDto $response */
+        $response = $this->serializer->deserialize($rawResponse, AnalyticsQueriesResponseDto::class, JsonEncoder::FORMAT);
+
+        if (!$response->getMetadata()->hasColumnHeader(AnalyticsQueriesResponseMetadata::HEADER_METRICS)) {
             throw new UnexpectedResponseException('Unexpected JWPlayer analytics metrics response: ' . $rawResponse);
         }
 
         $videoStats = new VideoStats();
 
-        if (count($responseJson->data->rows)) {
-            $jwPlayerRows = $responseJson->data->rows[0];
+        if ($response->getData()->hasRows()) {
+            $jwPlayerRows = $response->getData()->getRows()[0];
             if ($jwPlayerRows[0] !== $params->getMediaId()) {
                 throw new UnexpectedResponseException('Unexpected JWPlayer analytics rows response: ' . $rawResponse);
             }
             array_shift($jwPlayerRows);
 
-            $metrics = $responseJson->metadata->column_headers->metrics;
+            $metrics = $response->getMetadata()->getColumnHeader(AnalyticsQueriesResponseMetadata::HEADER_METRICS);
             $fields = array_column($metrics, 'field');
 
             foreach ($fields as $key => $field) {
