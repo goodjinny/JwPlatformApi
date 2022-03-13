@@ -6,7 +6,7 @@ namespace App\Exception\Serializer;
 
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 
-final class SymfonySerializerException extends \Exception implements ExceptionInterface
+class SymfonySerializerException extends \Exception implements ExceptionInterface
 {
 
 }

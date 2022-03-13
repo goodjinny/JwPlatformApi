@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Service\VideoPlatform\JwPlatform;
 
 use App\Enum\JwPlayerMetricsField;
-use App\Exception\Generic\InvalidArgumentException;
+use App\Exception\Serializer\DeserializationFailureException;
 use App\Exception\Serializer\SymfonySerializerException;
 use App\Service\VideoPlatform\JwPlatform\Request\CreateVideoParams;
 use App\Service\VideoPlatform\JwPlatform\Request\CreateVideoTrackParams;
@@ -68,7 +68,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new InvalidArgumentException(
+            throw new DeserializationFailureException(
                 'Unable to deserialize: "' . $rawResponse . '"',
                 0,
                 $exception
@@ -96,7 +96,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new InvalidArgumentException(
+            throw new DeserializationFailureException(
                 'Unable to deserialize: "' . $rawResponse . '"',
                 0,
                 $exception
@@ -124,7 +124,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new InvalidArgumentException(
+            throw new DeserializationFailureException(
                 'Unable to deserialize: "' . $rawResponse . '"',
                 0,
                 $exception
@@ -153,7 +153,7 @@ class JwPlatformApi
         /** @var \stdClass $responseJson */
         $responseJson = json_decode($rawResponse);
         if (!isset($responseJson->metadata->column_headers->metrics)) {
-            throw new InvalidArgumentException('Unexpected JWPlayer analytics metrics response: ' . $rawResponse);
+            throw new DeserializationFailureException('Unexpected JWPlayer analytics metrics response: ' . $rawResponse);
         }
 
         $videoStats = new VideoStats();
@@ -161,7 +161,7 @@ class JwPlatformApi
         if (count($responseJson->data->rows)) {
             $jwPlayerRows = $responseJson->data->rows[0];
             if ($jwPlayerRows[0] !== $params->getMediaId()) {
-                throw new InvalidArgumentException('Unexpected JWPlayer analytics rows response: ' . $rawResponse);
+                throw new DeserializationFailureException('Unexpected JWPlayer analytics rows response: ' . $rawResponse);
             }
             array_shift($jwPlayerRows);
 
@@ -212,7 +212,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new InvalidArgumentException(
+            throw new DeserializationFailureException(
                 'Unable to deserialize: "' . $rawResponse . '"',
                 0,
                 $exception
@@ -235,7 +235,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new InvalidArgumentException(
+            throw new DeserializationFailureException(
                 'Unable to deserialize: "' . $rawResponse . '"',
                 0,
                 $exception
@@ -258,7 +258,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new InvalidArgumentException(
+            throw new DeserializationFailureException(
                 'Unable to deserialize: "' . $rawResponse . '"',
                 0,
                 $exception
@@ -281,7 +281,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new InvalidArgumentException(
+            throw new DeserializationFailureException(
                 'Unable to deserialize: "' . $rawResponse . '"',
                 0,
                 $exception
@@ -304,7 +304,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new InvalidArgumentException(
+            throw new DeserializationFailureException(
                 'Unable to deserialize: "' . $rawResponse . '"',
                 0,
                 $exception
@@ -327,7 +327,7 @@ class JwPlatformApi
                 'json'
             );
         } catch (SymfonySerializerException $exception) {
-            throw new InvalidArgumentException(
+            throw new DeserializationFailureException(
                 'Unable to deserialize: "' . $rawResponse . '"',
                 0,
                 $exception
