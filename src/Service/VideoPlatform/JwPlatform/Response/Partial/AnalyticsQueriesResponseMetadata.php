@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Response;
+namespace App\Service\VideoPlatform\JwPlatform\Response\Partial;
 
 final class AnalyticsQueriesResponseMetadata
 {

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Service\VideoPlatform\JwPlatform;
 
-use App\DTO\Response\AnalyticsQueriesResponseDto;
-use App\DTO\Response\AnalyticsQueriesResponseMetadata;
 use App\Enum\JwPlayerMetricsField;
 use App\Exception\Serializer\DeserializationFailureException;
 use App\Exception\Serializer\SymfonySerializerException;
@@ -20,10 +18,12 @@ use App\Service\VideoPlatform\JwPlatform\Request\ListVideosParams;
 use App\Service\VideoPlatform\JwPlatform\Request\ShowVideoParams;
 use App\Service\VideoPlatform\JwPlatform\Request\UpdateVideoThumbnailParams;
 use App\Service\VideoPlatform\JwPlatform\Request\VideoStatsParams;
+use App\Service\VideoPlatform\JwPlatform\Response\AnalyticsQueriesResponse;
 use App\Service\VideoPlatform\JwPlatform\Response\ApiResponse;
 use App\Service\VideoPlatform\JwPlatform\Response\CreatedWebhookApiResponse;
 use App\Service\VideoPlatform\JwPlatform\Response\DeleteVideosResponse;
 use App\Service\VideoPlatform\JwPlatform\Response\DeleteVideoTrackResponse;
+use App\Service\VideoPlatform\JwPlatform\Response\Partial\AnalyticsQueriesResponseMetadata;
 use App\Service\VideoPlatform\JwPlatform\Response\ThumbnailResource;
 use App\Service\VideoPlatform\JwPlatform\Response\TracksList;
 use App\Service\VideoPlatform\JwPlatform\Response\UploadMetadata;
@@ -153,8 +153,8 @@ class JwPlatformApi
         $normalizedParams = $this->normalizer->normalize($params);
         $rawResponse = $this->client->requestV2($path, $normalizedParams);
 
-        /** @var AnalyticsQueriesResponseDto $response */
-        $response = $this->serializer->deserialize($rawResponse, AnalyticsQueriesResponseDto::class, JsonEncoder::FORMAT);
+        /** @var AnalyticsQueriesResponse $response */
+        $response = $this->serializer->deserialize($rawResponse, AnalyticsQueriesResponse::class, JsonEncoder::FORMAT);
 
         return  $this->buildAnalyticsQueriesVideoStats($response);
     }
@@ -316,7 +316,7 @@ class JwPlatformApi
         );
     }
 
-    private function buildAnalyticsQueriesVideoStats(AnalyticsQueriesResponseDto $response): VideoStats
+    private function buildAnalyticsQueriesVideoStats(AnalyticsQueriesResponse $response): VideoStats
     {
         $videoStats = new VideoStats();
 

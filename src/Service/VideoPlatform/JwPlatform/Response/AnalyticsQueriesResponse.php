@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Response;
+namespace App\Service\VideoPlatform\JwPlatform\Response;
 
 use App\Exception\Response\UnexpectedResponseException;
+use App\Service\VideoPlatform\JwPlatform\Response\Partial\AnalyticsQueriesResponseData;
+use App\Service\VideoPlatform\JwPlatform\Response\Partial\AnalyticsQueriesResponseMetadata;
 
-final class AnalyticsQueriesResponseDto
+final class AnalyticsQueriesResponse
 {
     private AnalyticsQueriesResponseMetadata $metadata;
 
