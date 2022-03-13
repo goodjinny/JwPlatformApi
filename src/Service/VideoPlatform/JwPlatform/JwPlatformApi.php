@@ -6,6 +6,7 @@ namespace App\Service\VideoPlatform\JwPlatform;
 
 use App\Enum\JwPlayerMetricsField;
 use App\Exception\Generic\InvalidArgumentException;
+use App\Exception\Serializer\SymfonySerializerException;
 use App\Service\VideoPlatform\JwPlatform\Request\CreateVideoParams;
 use App\Service\VideoPlatform\JwPlatform\Request\CreateVideoTrackParams;
 use App\Service\VideoPlatform\JwPlatform\Request\CreateWebhookParams;
@@ -27,7 +28,6 @@ use App\Service\VideoPlatform\JwPlatform\Response\UploadMetadata;
 use App\Service\VideoPlatform\JwPlatform\Response\VideoShowResponse;
 use App\Service\VideoPlatform\JwPlatform\Response\VideosList;
 use App\Service\VideoPlatform\VideoStats;
-use Symfony\Component\Serializer\Exception\ExceptionInterface as SymfonySerializerException;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
