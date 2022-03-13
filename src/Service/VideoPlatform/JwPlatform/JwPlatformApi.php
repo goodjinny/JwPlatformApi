@@ -66,7 +66,7 @@ class JwPlatformApi
         try {
             /** @var ApiResponse $deserialized */
             $deserialized = $this->serializer->deserialize(
-                trim($rawResponse),
+                $rawResponse,
                 ApiResponse::class,
                 'json'
             );
@@ -94,7 +94,7 @@ class JwPlatformApi
         try {
             /** @var ApiResponse $deserialized */
             $deserialized = $this->serializer->deserialize(
-                trim($rawResponse),
+                $rawResponse,
                 ApiResponse::class,
                 'json'
             );
@@ -122,7 +122,7 @@ class JwPlatformApi
         try {
             /** @var ApiResponse $deserialized */
             $deserialized = $this->serializer->deserialize(
-                trim($rawResponse),
+                $rawResponse,
                 ApiResponse::class,
                 'json'
             );
@@ -168,7 +168,7 @@ class JwPlatformApi
         try {
             /** @var CreatedWebhookApiResponse $deserialized */
             $deserialized = $this->serializer->deserialize(
-                trim($rawResponse),
+                $rawResponse,
                 CreatedWebhookApiResponse::class,
                 'json'
             );
@@ -191,7 +191,7 @@ class JwPlatformApi
         try {
             /** @var VideosList $deserialized */
             $deserialized = $this->serializer->deserialize(
-                trim($rawResponse),
+                $rawResponse,
                 VideosList::class,
                 'json'
             );
@@ -214,7 +214,7 @@ class JwPlatformApi
         try {
             /** @var VideoShowResponse $deserialized */
             $deserialized = $this->serializer->deserialize(
-                trim($rawResponse),
+                $rawResponse,
                 VideoShowResponse::class,
                 'json'
             );
@@ -237,7 +237,7 @@ class JwPlatformApi
         try {
             /** @var DeleteVideosResponse $deserialized */
             $deserialized = $this->serializer->deserialize(
-                trim($rawResponse),
+                $rawResponse,
                 DeleteVideosResponse::class,
                 'json'
             );
@@ -260,7 +260,7 @@ class JwPlatformApi
         try {
             /** @var TracksList $deserialized */
             $deserialized = $this->serializer->deserialize(
-                trim($rawResponse),
+                $rawResponse,
                 TracksList::class,
                 'json'
             );
@@ -283,7 +283,7 @@ class JwPlatformApi
         try {
             /** @var DeleteVideoTrackResponse $deserialized */
             $deserialized = $this->serializer->deserialize(
-                trim($rawResponse),
+                $rawResponse,
                 DeleteVideoTrackResponse::class,
                 'json'
             );
