@@ -37,22 +37,12 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class JwPlatformApi
 {
-    private SerializerInterface $serializer;
-    private NormalizerInterface $normalizer;
-    private JwPlatformClient $client;
-    private string $siteKey;
-
     public function __construct(
-        SerializerInterface $serializer,
-        NormalizerInterface $normalizer,
-        JwPlatformClient $client,
-        string $siteKey
-    ) {
-        $this->serializer = $serializer;
-        $this->normalizer = $normalizer;
-        $this->client = $client;
-        $this->siteKey = $siteKey;
-    }
+        private SerializerInterface $serializer,
+        private NormalizerInterface $normalizer,
+        private JwPlatformClient $client,
+        private string $siteKey
+    ) {}
 
     /**
      * @see https://developer.jwplayer.com/jwplayer/reference#post_videos-create
