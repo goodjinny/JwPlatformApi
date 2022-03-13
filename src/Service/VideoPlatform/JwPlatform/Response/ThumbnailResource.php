@@ -24,8 +24,23 @@ final class ThumbnailResource
     {
         $this->fileName = $fileName;
         $this->filePath = $filePath;
-        if (in_array($mimeType, self::MIME_TYPES)) {
+        if (null !== $mimeType && in_array($mimeType, self::MIME_TYPES, true)) {
             $this->mimeType = $mimeType;
         }
+    }
+
+    public function getFileName(): string
+    {
+        return $this->fileName;
+    }
+
+    public function getFilePath(): string
+    {
+        return $this->filePath;
+    }
+
+    public function getMimeType(): ?string
+    {
+        return $this->mimeType;
     }
 }
