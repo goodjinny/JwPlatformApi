@@ -64,8 +64,7 @@ class JwPlatformApi
         $rawResponse = $this->client->requestV1('/videos/create', $normalizedParams);
 
         try {
-            /** @var ApiResponse $deserialized */
-            $deserialized = $this->serializer->deserialize(
+            return $this->serializer->deserialize(
                 $rawResponse,
                 ApiResponse::class,
                 'json'
@@ -77,8 +76,6 @@ class JwPlatformApi
                 $exception
             );
         }
-
-        return $deserialized;
     }
 
     public function createThumbnailUpdateMetadata(UpdateVideoThumbnailParams $params): ApiResponse
@@ -92,8 +89,7 @@ class JwPlatformApi
         $rawResponse = $this->client->requestV1('/videos/thumbnails/update', $normalizedParams);
 
         try {
-            /** @var ApiResponse $deserialized */
-            $deserialized = $this->serializer->deserialize(
+            return $this->serializer->deserialize(
                 $rawResponse,
                 ApiResponse::class,
                 'json'
@@ -105,8 +101,6 @@ class JwPlatformApi
                 $exception
             );
         }
-
-        return $deserialized;
     }
 
     public function createTrackCreateMetadata(CreateVideoTrackParams $params): ApiResponse
@@ -120,8 +114,7 @@ class JwPlatformApi
         $rawResponse = $this->client->requestV1('/videos/tracks/create', $normalizedParams);
 
         try {
-            /** @var ApiResponse $deserialized */
-            $deserialized = $this->serializer->deserialize(
+            return $this->serializer->deserialize(
                 $rawResponse,
                 ApiResponse::class,
                 'json'
@@ -133,8 +126,6 @@ class JwPlatformApi
                 $exception
             );
         }
-
-        return $deserialized;
     }
 
     public function upload(UploadMetadata $params, string $filePath): void
@@ -166,8 +157,7 @@ class JwPlatformApi
         $rawResponse = $this->client->requestV2('/webhooks', $normalizedParams);
 
         try {
-            /** @var CreatedWebhookApiResponse $deserialized */
-            $deserialized = $this->serializer->deserialize(
+            return $this->serializer->deserialize(
                 $rawResponse,
                 CreatedWebhookApiResponse::class,
                 'json'
@@ -179,8 +169,6 @@ class JwPlatformApi
                 $exception
             );
         }
-
-        return $deserialized;
     }
 
     public function fetchVideos(ListVideosParams $params): VideosList
@@ -189,8 +177,7 @@ class JwPlatformApi
         $rawResponse = $this->client->requestV1('/videos/list', $normalizedParams);
 
         try {
-            /** @var VideosList $deserialized */
-            $deserialized = $this->serializer->deserialize(
+            return $this->serializer->deserialize(
                 $rawResponse,
                 VideosList::class,
                 'json'
@@ -202,8 +189,6 @@ class JwPlatformApi
                 $exception
             );
         }
-
-        return $deserialized;
     }
 
     public function fetchVideo(ShowVideoParams $params): VideoShowResponse
@@ -212,8 +197,7 @@ class JwPlatformApi
         $rawResponse = $this->client->requestV1('/videos/show', $normalizedParams);
 
         try {
-            /** @var VideoShowResponse $deserialized */
-            $deserialized = $this->serializer->deserialize(
+            return $this->serializer->deserialize(
                 $rawResponse,
                 VideoShowResponse::class,
                 'json'
@@ -225,8 +209,6 @@ class JwPlatformApi
                 $exception
             );
         }
-
-        return $deserialized;
     }
 
     public function deleteVideos(DeleteVideosParams $params): DeleteVideosResponse
@@ -235,8 +217,7 @@ class JwPlatformApi
         $rawResponse = $this->client->requestV1('/videos/delete', $normalizedParams);
 
         try {
-            /** @var DeleteVideosResponse $deserialized */
-            $deserialized = $this->serializer->deserialize(
+            return $this->serializer->deserialize(
                 $rawResponse,
                 DeleteVideosResponse::class,
                 'json'
@@ -248,8 +229,6 @@ class JwPlatformApi
                 $exception
             );
         }
-
-        return $deserialized;
     }
 
     public function fetchTracks(ListTracksParams $params): TracksList
@@ -258,8 +237,7 @@ class JwPlatformApi
         $rawResponse = $this->client->requestV1('/videos/tracks/list', $normalizedParams);
 
         try {
-            /** @var TracksList $deserialized */
-            $deserialized = $this->serializer->deserialize(
+            return $this->serializer->deserialize(
                 $rawResponse,
                 TracksList::class,
                 'json'
@@ -271,8 +249,6 @@ class JwPlatformApi
                 $exception
             );
         }
-
-        return $deserialized;
     }
 
     public function deleteTrack(DeleteVideoTrackParams $params): DeleteVideoTrackResponse
@@ -281,8 +257,7 @@ class JwPlatformApi
         $rawResponse = $this->client->requestV1('/videos/tracks/delete', $normalizedParams);
 
         try {
-            /** @var DeleteVideoTrackResponse $deserialized */
-            $deserialized = $this->serializer->deserialize(
+            return $this->serializer->deserialize(
                 $rawResponse,
                 DeleteVideoTrackResponse::class,
                 'json'
@@ -294,8 +269,6 @@ class JwPlatformApi
                 $exception
             );
         }
-
-        return $deserialized;
     }
 
     public function fetchThumbnail(FetchThumbnailParams $params): ThumbnailResource
