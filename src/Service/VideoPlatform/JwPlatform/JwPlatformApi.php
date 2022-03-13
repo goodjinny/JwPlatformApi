@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\VideoPlatform\JwPlatform;
 
+use App\Enum\JwPlayerMetricsField;
 use App\Exception\Generic\InvalidArgumentException;
 use App\Service\VideoPlatform\JwPlatform\Request\CreateVideoParams;
 use App\Service\VideoPlatform\JwPlatform\Request\CreateVideoTrackParams;
@@ -33,14 +34,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class JwPlatformApi
 {
-    private const JWPLAYER_METRICS_FIELD_TOTAL_PLAYS = 'plays';
-    private const JWPLAYER_METRICS_FIELD_COMPLETE_RATE = 'complete_rate';
-    private const JWPLAYER_METRICS_FIELD_UNIQUE_VIEWERS = 'unique_viewers';
-    private const JWPLAYER_METRICS_FIELD_PLAY_RATE = 'play_rate';
-    private const JWPLAYER_METRICS_FIELD_EMBEDS = 'embeds';
-    private const JWPLAYER_METRICS_FIELD_COMPLETES = 'completes';
-    private const JWPLAYER_METRICS_FIELD_CONTENT_SCORE = 'content_score';
-
     private SerializerInterface $serializer;
     private NormalizerInterface $normalizer;
     private JwPlatformClient $client;
@@ -177,25 +170,25 @@ class JwPlatformApi
 
             foreach ($fields as $key => $field) {
                 switch ($field) {
-                    case self::JWPLAYER_METRICS_FIELD_TOTAL_PLAYS:
+                    case JwPlayerMetricsField::TOTAL_PLAYS->value:
                         $videoStats->setPlays($jwPlayerRows[$key]);
                         break;
-                    case self::JWPLAYER_METRICS_FIELD_COMPLETE_RATE:
+                    case JwPlayerMetricsField::COMPLETE_RATE->value:
                         $videoStats->setCompleteRate($jwPlayerRows[$key]);
                         break;
-                    case self::JWPLAYER_METRICS_FIELD_UNIQUE_VIEWERS:
+                    case JwPlayerMetricsField::UNIQUE_VIEWERS->value:
                         $videoStats->setUniqueViewers($jwPlayerRows[$key]);
                         break;
-                    case self::JWPLAYER_METRICS_FIELD_PLAY_RATE:
+                    case JwPlayerMetricsField::PLAY_RATE->value:
                         $videoStats->setPlayRate($jwPlayerRows[$key]);
                         break;
-                    case self::JWPLAYER_METRICS_FIELD_EMBEDS:
+                    case JwPlayerMetricsField::EMBEDS->value:
                         $videoStats->setEmbeds($jwPlayerRows[$key]);
                         break;
-                    case self::JWPLAYER_METRICS_FIELD_COMPLETES:
+                    case JwPlayerMetricsField::COMPLETES->value:
                         $videoStats->setCompletes($jwPlayerRows[$key]);
                         break;
-                    case self::JWPLAYER_METRICS_FIELD_CONTENT_SCORE:
+                    case JwPlayerMetricsField::CONTENT_SCORE->value:
                         $videoStats->setContentScore($jwPlayerRows[$key]);
                         break;
                 }
